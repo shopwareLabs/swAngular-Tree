@@ -15,9 +15,9 @@ angular.module('swAngularTree', [])
         function createSpace(depth) {
             var separator = '';
             if (depth < 1) {
-                separator = $sce.trustAsHtml('&nbsp;&nbsp;&nbsp;');
+                separator = '&nbsp;&nbsp;&nbsp;';
             } else {
-                separator = $sce.trustAsHtml('&nbsp;&nbsp;&nbsp;');
+                separator = '&nbsp;&nbsp;&nbsp;';
             }
             return {
                 separator: separator
