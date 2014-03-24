@@ -71,7 +71,7 @@ angular.module('swAngularTree', [])
                 $scope.currentNode = {};
 
 
-                if ($scope.options.listeners && typeof $scope.options.listeners.onselect == 'function') {
+                if ($scope.options && $scope.options.listeners && typeof $scope.options.listeners.onselect == 'function') {
                     $scope.$watch('currentNode', function (newCurrentNode) {
                         $scope.options.listeners.onselect(newCurrentNode.item);
                     });
