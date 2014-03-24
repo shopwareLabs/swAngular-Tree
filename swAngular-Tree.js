@@ -1,3 +1,6 @@
+var scripts = document.getElementsByTagName("script");
+var currentScriptPath = scripts[scripts.length-1].src;
+
 angular.module('swAngularTree', [])
     .directive('swAngularTree', function ($sce, $http) {
         function createNode(label, depth, item, parent) {
@@ -66,7 +69,7 @@ angular.module('swAngularTree', [])
                 object: '=ngModel',
                 options: '=swOptions'
             },
-            templateUrl: "/directives/swAngular-Tree/swAngular-Tree.html",
+            templateUrl: currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1) + "swAngular-Tree.html",
             controller: function ($scope) {
                 $scope.currentNode = {};
 
