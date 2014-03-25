@@ -1,5 +1,6 @@
 var scripts = document.getElementsByTagName("script");
-var currentScriptPath = scripts[scripts.length-1].src;
+var pathMap = pathMap || {};
+pathMap['swAngular-SimpleGrid'] = scripts[scripts.length - 1].src;
 
 angular.module('swAngularTree', [])
     .directive('swAngularTree', function ($sce, $http) {
@@ -69,7 +70,7 @@ angular.module('swAngularTree', [])
                 object: '=ngModel',
                 options: '=swOptions'
             },
-            templateUrl: currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1) + "swAngular-Tree.html",
+            templateUrl: pathMap['swAngular-SimpleGrid'].substring(0, pathMap['swAngular-SimpleGrid'].lastIndexOf('/') + 1) + "swAngular-Tree.html",
             controller: function ($scope) {
                 $scope.currentNode = {};
 
