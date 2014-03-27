@@ -3,7 +3,7 @@ var pathMap = pathMap || {};
 pathMap['swAngular-Tree'] = scripts[scripts.length - 1].src;
 
 angular.module('swAngularTree', [])
-    .directive('swAngularTree', function ($sce, $http) {
+    .directive('swAngularTree', function ($sce, $http, $compile) {
         function createNode(label, depth, item, parent) {
             return {
                 label: label,
@@ -12,7 +12,8 @@ angular.module('swAngularTree', [])
                 spaces: [],
                 parent: parent,
                 children: [],
-                collapsed: true
+                collapsed: true,
+                checked: item.checked || false
             }
         }
 
@@ -123,14 +124,26 @@ angular.module('swAngularTree', [])
                     }
 
                     $scope.currentNode = node;
-                }
+                };
+
+                $scope.checkboxClick = function(node, checked) {
+                    if ($scope.options && $scope.options.listeners && typeof $scope.options.listeners.oncheckboxchange == 'function') {
+                        $scope.options.listeners.oncheckboxchange(node.item, checked);
+                    }
+                };
             },
             link: function ($scope, $element, $attrs) {
                 $scope.style = {};
                 $scope.style.space = {width: '20px', float:'left'};
+                $scope.style.node = {
+                    cursor: $scope.options.noCollapse?'default':'pointer'
+                };
 
-                $scope.list = getListFromTree($scope.object);
-                addSpaces($scope.list);
+
+                $scope.$watch('object', function(changedObject) {
+                    $scope.list = getListFromTree(changedObject);
+                    addSpaces($scope.list);
+                });
             }
         };
     })
