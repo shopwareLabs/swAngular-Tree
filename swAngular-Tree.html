@@ -1,6 +1,6 @@
 <div>
     <div ng-repeat="node in list" ng-hide="node.parent.collapsed" ng-class="{bold: (node == currentNode)}">
-        <span ng-repeat="space in node.spaces" ng-style="style.space" ng-bind-html="space.separator"></span>
+        <div ng-show="space" ng-repeat="space in node.spaces" ng-style="style.space">&nbsp;</div>
         <span ng-click="toggle(node, !node.collapsed)">
             <span ng-show="node.collapsed" class="glyphicon glyphicon-{{node.item.gridIcon_collapsed || node.item.gridIcon || options.collapsedNodeIcon || options.nodeIcon || 'folder-close'}}"></span>
             <span ng-show="!node.collapsed" class="glyphicon glyphicon-{{node.item.gridIcon_uncollapsed || node.item.gridIcon || options.uncollapsedNodeIcon || options.nodeIcon || 'folder-open'}}"></span>

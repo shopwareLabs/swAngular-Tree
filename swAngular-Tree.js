@@ -19,9 +19,9 @@ angular.module('swAngularTree', [])
         function createSpace(depth) {
             var separator = '';
             if (depth < 1) {
-                separator = '&nbsp;&nbsp;&nbsp;';
+                separator = $sce.trustAsHtml('+');
             } else {
-                separator = '&nbsp;&nbsp;&nbsp;';
+                separator = $sce.trustAsHtml('-');
             }
             return {
                 separator: separator
@@ -127,7 +127,7 @@ angular.module('swAngularTree', [])
             },
             link: function ($scope, $element, $attrs) {
                 $scope.style = {};
-                $scope.style.space = {width: '10px'};
+                $scope.style.space = {width: '20px', float:'left'};
 
                 $scope.list = getListFromTree($scope.object);
                 addSpaces($scope.list);
