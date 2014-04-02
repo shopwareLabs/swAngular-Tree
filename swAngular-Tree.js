@@ -1,7 +1,3 @@
-var scripts = document.getElementsByTagName("script");
-var pathMap = pathMap || {};
-pathMap['swAngular-Tree'] = scripts[scripts.length - 1].src;
-
 angular.module('swAngularTree', [])
     .directive('swAngularTree', function ($sce, $http, $compile) {
         function createNode(label, depth, item, parent) {
@@ -71,7 +67,19 @@ angular.module('swAngularTree', [])
                 object: '=ngModel',
                 options: '=swOptions'
             },
-            templateUrl: pathMap['swAngular-Tree'].substring(0, pathMap['swAngular-Tree'].lastIndexOf('/') + 1) + "swAngular-Tree.html",
+            template: [
+                '<div>',
+                '    <div ng-repeat="node in list" ng-show="!node.parent.collapsed || options.noCollapse" ng-class="{bold: (node == currentNode)}">',
+                '        <div ng-show="space" ng-repeat="space in node.spaces" ng-style="style.space">&nbsp;</div>',
+                '        <span ng-style="style.node">',
+                '            <span ng-click="toggle(node, !node.collapsed)" ng-show="node.collapsed && !options.noCollapse" class="glyphicon glyphicon-{{node.item.gridIcon_collapsed || node.item.gridIcon || options.collapsedNodeIcon || options.nodeIcon || \'folder-close\'}}"></span>',
+                '            <span ng-click="toggle(node, !node.collapsed)" ng-show="!node.collapsed || options.noCollapse" class="glyphicon glyphicon-{{node.item.gridIcon_uncollapsed || node.item.gridIcon || options.uncollapsedNodeIcon || options.nodeIcon || \'folder-open\'}}"></span>',
+                '            <input type="checkbox" ng-show="options.showCheckbox" ng-model="node.checked" ng-click="checkboxClick(node, node.checked!=true)"/>',
+                '            <span ng-click="toggle(node, !node.collapsed)">{{node[\'label\']}}</span>',
+                '        </span>',
+                '    </div>',
+                '</div>'
+            ].join('\n'),
             controller: function ($scope) {
                 $scope.currentNode = {};
 
