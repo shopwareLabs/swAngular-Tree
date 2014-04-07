@@ -77,7 +77,7 @@ angular.module('swAngularTree', [])
                 '            <input type="checkbox" ng-show="options.showCheckbox" ng-model="node.checked" ng-click="checkboxClick(node, node.checked!=true)"/>',
                 '            <span ng-click="toggle(node, !node.collapsed)">{{node[\'label\']}}</span>',
                 '        </span>',
-                '        <span ng-style="style.node" ng-show="!node.children && node.children.length < 1">',
+                '        <span ng-style="style.node" ng-show="!node.children || node.children.length < 1">',
                 '            <span class="glyphicon glyphicon-{{node.item.gridIcon_leaf || node.item.gridIcon || options.leafNodeIcon || options.nodeIcon || \'file\'}}"></span>',
                 '            <input type="checkbox" ng-show="options.showCheckbox" ng-model="node.checked" ng-click="checkboxClick(node, node.checked!=true)"/>',
                 '            <span>{{node[\'label\']}}</span>',
