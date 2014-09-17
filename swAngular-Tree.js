@@ -1,5 +1,9 @@
 angular.module('swAngularTree', [])
     .directive('swAngularTree', function ($sce, $http, $compile) {
+        var defaults = {
+            collapsed: true
+        };
+
         function createNode(label, depth, item, parent) {
             return {
                 label: label,
@@ -8,7 +12,7 @@ angular.module('swAngularTree', [])
                 spaces: [],
                 parent: parent,
                 children: [],
-                collapsed: true,
+                collapsed: defaults.collapsed == true,
                 checked: item.checked || false
             }
         }
@@ -146,6 +150,8 @@ angular.module('swAngularTree', [])
                 };
             },
             link: function ($scope, $element, $attrs) {
+                defaults.collapsed = $scope.options.defaultCollapsed == true;
+
                 $scope.style = {};
                 $scope.style.space = {width: '20px', float: 'left'};
                 $scope.style.node = {
